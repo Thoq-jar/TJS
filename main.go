@@ -28,8 +28,15 @@ func init() {
 }
 
 func executeJS(filePath string) {
-	jsCode, _ := os.ReadFile(filePath)
-	_, _ = context.RunScript(string(jsCode), "")
+	jsCode, err := os.ReadFile(filePath)
+	if err != nil {
+		fmt.Printf("Error reading file: %v\n", err)
+		return
+	}
+	_, err = context.RunScript(string(jsCode), "")
+	if err != nil {
+		fmt.Printf("Error executing script: %v\n", err)
+	}
 }
 
 func main() {
